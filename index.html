@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OceanEmbed | North Indian Ocean Observatory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <div>
+          <strong>OceanEmbed</strong>
+          <small>Marine Intelligence</small>
+        </div>
+      </div>
+
+      <nav>
+        <p class="nav-label">Workspace</p>
+        <button class="nav-item active" data-section="overview"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-section="explorer"><span>◉</span> Ocean Explorer</button>
+        <button class="nav-item" data-section="profiles"><span>⌁</span> Depth Profiles</button>
+        <button class="nav-item" data-section="compare"><span>▥</span> Compare</button>
+
+        <p class="nav-label">Pipeline</p>
+        <button class="nav-item" data-section="data"><span>◫</span> Data Sources</button>
+        <button class="nav-item" data-section="model"><span>◇</span> Model Status</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="system-status">
+          <span class="pulse"></span>
+          <div><b>Pipeline online</b><small>Last sync · 18:42 IST</small></div>
+        </div>
+        <div class="version">OceanEmbed v1.0 · SIH 2026</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="crumb">NORTH INDIAN OCEAN <span>/</span> OBSERVATORY</div>
+        <div class="top-actions">
+          <button class="date-chip" id="dateChip">23 JUN 2021 <span>⌄</span></button>
+          <button class="icon-btn" title="Notifications">◌</button>
+          <div class="avatar">OE</div>
+        </div>
+      </header>
+
+      <section id="overview" class="section active-section">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">SUBSURFACE OCEAN MONITORING</div>
+            <h1>See beneath the surface.</h1>
+            <p>Estimate temperature through the upper 1000 m of the North Indian Ocean from coordinated surface observations.</p>
+            <div class="hero-actions">
+              <button class="primary-btn" data-section-target="explorer">Explore ocean <span>→</span></button>
+              <button class="secondary-btn" data-section-target="profiles">View depth profile</button>
+            </div>
+          </div>
+          <div class="hero-map">
+            <div class="map-grid"></div>
+            <div class="map-land land-a"></div>
+            <div class="map-land land-b"></div>
+            <div class="route route-a"></div>
+            <div class="route route-b"></div>
+            <div class="map-point p1"><i></i><b>65°E</b></div>
+            <div class="map-point p2"><i></i><b>82°E</b></div>
+            <div class="map-label arabian">ARABIAN SEA</div>
+            <div class="map-label bay">BAY OF BENGAL</div>
+            <div class="map-coords">5°N — 30°N<br>45°E — 105°E</div>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <article><span class="metric-icon">≈</span><div><small>Surface SST</small><strong>28.6°C</strong><em>+0.4°C vs climatology</em></div></article>
+          <article><span class="metric-icon">↓</span><div><small>100 m temperature</small><strong>22.1°C</strong><em>Thermocline layer</em></div></article>
+          <article><span class="metric-icon">◌</span><div><small>Deepest layer</small><strong>8.7°C</strong><em>1000 m estimate</em></div></article>
+          <article><span class="metric-icon">▦</span><div><small>Grid coverage</small><strong>24,341</strong><em>0.25° spatial cells</em></div></article>
+        </div>
+
+        <div class="content-grid">
+          <article class="panel large-panel">
+            <div class="panel-head">
+              <div><span class="section-kicker">TEMPERATURE FIELD</span><h2>Subsurface temperature</h2></div>
+              <div class="segmented" id="depthTabs">
+                <button class="selected" data-depth="0">0 m</button>
+                <button data-depth="100">100 m</button>
+                <button data-depth="500">500 m</button>
+                <button data-depth="1000">1000 m</button>
+              </div>
+            </div>
+            <div class="temperature-map" id="temperatureMap">
+              <div class="map-water"></div>
+              <div class="contour c1"></div><div class="contour c2"></div><div class="contour c3"></div>
+              <div class="hotspot hs1"></div><div class="hotspot hs2"></div><div class="hotspot hs3"></div>
+              <div class="map-axis x">45°E&nbsp;&nbsp;&nbsp;&nbsp;60°E&nbsp;&nbsp;&nbsp;&nbsp;75°E&nbsp;&nbsp;&nbsp;&nbsp;90°E&nbsp;&nbsp;&nbsp;&nbsp;105°E</div>
+              <div class="map-axis y">30°N<br><br>20°N<br><br>10°N<br><br>5°N</div>
+              <div class="map-tooltip" id="mapTooltip"><b>15.0°N, 65.0°E</b><span>Temperature <strong>28.4°C</strong></span></div>
+              <div class="legend"><span>8°</span><i></i><span>18°</span><i></i><span>28°</span><i></i><span>36°C</span></div>
+            </div>
+            <div class="map-footer"><span><i class="dot good"></i> Valid seawater cells</span><span>Model input: 7 surface variables</span><span>Target: 15 depth levels</span></div>
+          </article>
+
+          <article class="panel profile-card">
+            <div class="panel-head"><div><span class="section-kicker">VERTICAL SIGNAL</span><h2>Thermal profile</h2></div><span class="coord">15.0°N · 65.0°E</span></div>
+            <div class="profile-chart">
+              <div class="profile-line"></div>
+              <div class="profile-point pp1"><span>28.4°C</span></div>
+              <div class="profile-point pp2"><span>22.1°C</span></div>
+              <div class="profile-point pp3"><span>15.6°C</span></div>
+              <div class="profile-point pp4"><span>8.7°C</span></div>
+              <div class="depth-label d0">0 m</div><div class="depth-label d1">100 m</div><div class="depth-label d2">500 m</div><div class="depth-label d3">1000 m</div>
+            </div>
+            <div class="profile-note">Strongest gradient appears between <b>50–150 m</b>, indicating the core thermocline region.</div>
+          </article>
+        </div>
+
+        <div class="lower-grid">
+          <article class="panel">
+            <div class="panel-head"><div><span class="section-kicker">SUB-BASIN SNAPSHOT</span><h2>Regional conditions</h2></div></div>
+            <div class="basin-row"><div class="basin-name"><span class="basin-icon">AS</span><div><b>Arabian Sea</b><small>50°–77°E · 5°–25°N</small></div></div><strong>29.1°C</strong><span class="trend up">↑ 0.6°</span></div>
+            <div class="basin-row"><div class="basin-name"><span class="basin-icon">BB</span><div><b>Bay of Bengal</b><small>80°–98°E · 5°–23°N</small></div></div><strong>28.7°C</strong><span class="trend neutral">→ 0.1°</span></div>
+            <div class="basin-row"><div class="basin-name"><span class="basin-icon">IO</span><div><b>Equatorial Indian Ocean</b><small>50°–100°E · 5°–8°N</small></div></div><strong>27.9°C</strong><span class="trend down">↓ 0.3°</span></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head"><div><span class="section-kicker">INPUT STACK</span><h2>Surface observations</h2></div><span class="badge">7 channels</span></div>
+            <div class="input-list">
+              <span>SST <b>28.6°C</b></span><span>SSS <b>34.7 PSU</b></span><span>SSH / SLA <b>+0.18 m</b></span><span>Currents <b>0.42 m/s</b></span><span>Wind <b>5.8 m/s</b></span>
+            </div>
+            <div class="quality"><span>Data quality</span><div><i style="width:92%"></i></div><b>92%</b></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="explorer" class="section">
+        <div class="page-title"><span class="section-kicker">SPATIAL EXPLORER</span><h1>Ocean Explorer</h1><p>Move through the reconstructed temperature field layer by layer.</p></div>
+        <div class="explorer-grid">
+          <div class="panel explorer-map-panel">
+            <div class="panel-head"><div><h2 id="explorerDepthTitle">Temperature at 100 m</h2><span class="coord">North Indian Ocean · 0.25° grid</span></div><span class="badge">LIVE VIEW</span></div>
+            <div class="big-map">
+              <div class="map-water"></div><div class="contour bc1"></div><div class="contour bc2"></div><div class="contour bc3"></div>
+              <div class="big-grid"></div><div class="location-pin" id="locationPin">⌖</div>
+              <div class="big-legend">TEMPERATURE °C<br><span>8</span><i></i><span>18</span><i></i><span>28</span><i></i><span>36</span></div>
+            </div>
+          </div>
+          <div class="panel controls">
+            <span class="section-kicker">LAYER CONTROL</span><h2>Depth</h2>
+            <div class="depth-slider"><input id="depthSlider" type="range" min="0" max="1000" value="100" step="5"><div><span>0 m</span><b id="sliderValue">100 m</b><span>1000 m</span></div></div>
+            <div class="depth-presets">
+              <button data-slider="0">Surface<br><b>0 m</b></button><button class="active" data-slider="100">Thermocline<br><b>100 m</b></button><button data-slider="500">Mid-depth<br><b>500 m</b></button><button data-slider="1000">Deep<br><b>1000 m</b></button>
+            </div>
+            <hr>
+            <span class="section-kicker">POINT INSPECTION</span>
+            <div class="coordinate-inputs"><label>Latitude<input id="latInput" value="15.00"></label><label>Longitude<input id="lonInput" value="65.00"></label></div>
+            <button class="primary-btn full" id="inspectBtn">Inspect location →</button>
+            <div class="inspection-result"><small>ESTIMATED TEMPERATURE</small><strong id="inspectTemp">22.1°C</strong><span id="inspectDepth">at 100 m depth</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="profiles" class="section">
+        <div class="page-title"><span class="section-kicker">VERTICAL ANALYSIS</span><h1>Depth Profiles</h1><p>Understand how temperature changes from the surface to 1000 metres.</p></div>
+        <div class="profile-layout">
+          <article class="panel full-profile">
+            <div class="panel-head"><div><h2>Vertical temperature profile</h2><span class="coord">15.00°N · 65.00°E</span></div><button class="secondary-btn" id="profileLocation">Change point</button></div>
+            <div class="full-profile-chart">
+              <div class="profile-axis-y"><span>0</span><span>100</span><span>300</span><span>500</span><span>700</span><span>1000 m</span></div>
+              <div class="profile-plot"><div class="full-line"></div><div class="thermo-band"></div><div class="profile-marker m0">28.4°C</div><div class="profile-marker m1">22.1°C</div><div class="profile-marker m2">15.6°C</div><div class="profile-marker m3">11.4°C</div><div class="profile-marker m4">8.7°C</div></div>
+              <div class="profile-axis-x"><span>8°C</span><span>14°C</span><span>20°C</span><span>26°C</span><span>32°C</span></div>
+            </div>
+          </article>
+          <div class="profile-stats"><article class="panel"><small>THERMOCLINE CORE</small><strong>50–150 m</strong><p>Largest temperature gradient</p></article><article class="panel"><small>1000 M TEMPERATURE</small><strong>8.7°C</strong><p>Deep-water estimate</p></article><article class="panel"><small>PROFILE CONFIDENCE</small><strong>89%</strong><p>Valid input coverage</p></article></div>
+        </div>
+      </section>
+
+      <section id="compare" class="section">
+        <div class="page-title"><span class="section-kicker">REGIONAL COMPARISON</span><h1>Compare regions</h1><p>Contrast thermal structure across major North Indian Ocean sub-basins.</p></div>
+        <div class="compare-grid">
+          <article class="panel comparison"><div class="basin-head"><span class="basin-icon">AS</span><div><h2>Arabian Sea</h2><small>15°N · 65°E</small></div></div><div class="mini-profile as-profile"></div><div class="compare-values"><span>Surface <b>29.1°C</b></span><span>100 m <b>21.7°C</b></span><span>1000 m <b>8.5°C</b></span></div></article>
+          <article class="panel comparison"><div class="basin-head"><span class="basin-icon">BB</span><div><h2>Bay of Bengal</h2><small>15°N · 88°E</small></div></div><div class="mini-profile bb-profile"></div><div class="compare-values"><span>Surface <b>28.7°C</b></span><span>100 m <b>23.0°C</b></span><span>1000 m <b>8.9°C</b></span></div></article>
+          <article class="panel comparison"><div class="basin-head"><span class="basin-icon">IO</span><div><h2>Equatorial IO</h2><small>7°N · 75°E</small></div></div><div class="mini-profile io-profile"></div><div class="compare-values"><span>Surface <b>27.9°C</b></span><span>100 m <b>22.6°C</b></span><span>1000 m <b>8.8°C</b></span></div></article>
+        </div>
+      </section>
+
+      <section id="data" class="section">
+        <div class="page-title"><span class="section-kicker">DATA ENGINE</span><h1>Data Sources</h1><p>Seven surface channels are fused into a common 0.25° spatial grid.</p></div>
+        <div class="data-table panel">
+          <div class="table-head"><span>Source</span><span>Variable</span><span>Role</span><span>Status</span></div>
+          <div class="table-row"><b>ASCAT</b><span>Wind U / V</span><span>Surface forcing</span><em>Ready</em></div>
+          <div class="table-row"><b>OSCAR</b><span>Current U / V</span><span>Ocean dynamics</span><em>Ready</em></div>
+          <div class="table-row"><b>SSH</b><span>SLA / ADT</span><span>Sea-level signal</span><em>Ready</em></div>
+          <div class="table-row"><b>SSS</b><span>Salinity</span><span>Water-mass property</span><em>Ready</em></div>
+          <div class="table-row"><b>SST</b><span>Surface temperature</span><span>Thermal boundary</span><em>Ready</em></div>
+          <div class="table-row"><b>GLORYS12</b><span>thetao</span><span>Training target</span><em>Ready</em></div>
+        </div>
+        <div class="pipeline-strip panel"><div class="step done"><b>01</b><span>NetCDF ingest</span></div><i>→</i><div class="step done"><b>02</b><span>0.25° regrid</span></div><i>→</i><div class="step done"><b>03</b><span>Feature fusion</span></div><i>→</i><div class="step current"><b>04</b><span>Tensor generation</span></div><i>→</i><div class="step"><b>05</b><span>DL inference</span></div></div>
+      </section>
+
+      <section id="model" class="section">
+        <div class="page-title"><span class="section-kicker">MODEL OPERATIONS</span><h1>Model Status</h1><p>Transparent view of the data-to-prediction pipeline.</p></div>
+        <div class="model-grid">
+          <article class="panel model-health"><div class="health-ring">92<small>%</small></div><div><span class="section-kicker">SYSTEM HEALTH</span><h2>Ready for inference</h2><p>Input tensor structure is synchronized with the 15-level target schema.</p></div></article>
+          <article class="panel"><span class="section-kicker">INPUT</span><h2>X tensor</h2><strong class="big-stat">(7, 101, 241)</strong><p>7 surface feature channels</p></article>
+          <article class="panel"><span class="section-kicker">OUTPUT</span><h2>Y tensor</h2><strong class="big-stat">(15, 101, 241)</strong><p>15 vertical temperature layers</p></article>
+          <article class="panel"><span class="section-kicker">MASK</span><h2>Ocean validity</h2><strong class="big-stat">(15, 101, 241)</strong><p>Seawater-aware depth masking</p></article>
+        </div>
+        <div class="panel architecture"><span class="section-kicker">PIPELINE ARCHITECTURE</span><div class="architecture-flow"><div>Surface observations<small>ASCAT · OSCAR · SSH · SSS · SST</small></div><b>→</b><div>Feature tensor<small>7 × 101 × 241</small></div><b>→</b><div>Deep learning model<small>Spatial + vertical inference</small></div><b>→</b><div>Subsurface field<small>15 depth levels · 0–1000 m</small></div></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">Location updated</div>
+  <script src="script.js"></script>
+</body>
+</html>
